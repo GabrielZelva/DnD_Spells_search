@@ -1,10 +1,11 @@
-# %% id="JuRfetXyqWYU"
+# %%
 import pandas as pd
 
-data = pd.read_csv("DnD_spells.csv")
+data = pd.read_csv("spells_without_duplicates.csv")
 
-# %% colab={"base_uri": "https://localhost:8080/"} id="42je79X1wzJH" outputId="a8242574-3a7a-4036-f729-532c6e9c8ca5"
+# %%
 data.columns
+
 # %%
 data
 
@@ -29,7 +30,7 @@ def IR(query, k):
     results += "Spell name: "
     results += str(data["Name"][row]) + "\n"
     results += 20*"-" + "\n"
-    results += f"Class: {data['Class'][row]}\nLevel: {data['Level'][row]}\nSchool: {data['School'][row]}\nDuration: {data['Duration'][row]}\nCasting time: {data['Casting time'][row]}\nComponents: {data['Components'][row]}\n"
+    results += f"Class: {data['Class'][row]}\nLevel: {data['Level'][row]}\nSchool: {data['School'][row]}\nDuration: {data['Duration'][row]}\nCasting time: {data['Casting.time'][row]}\nComponents: {data['Components'][row]}\n"
 
     if data["Material"][row] != "NONE":
         results += f"Material: {data['Material'][row]}\n"
@@ -53,7 +54,6 @@ print(IR(query, k))
 
 # TODO:
 #
-# * Handle duplicates
-#
 # * Enable filtering before the query
+# * Make it into Shiny
 
