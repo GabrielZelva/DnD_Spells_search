@@ -1,0 +1,7 @@
+shiny
+pandas
+langchain_huggingface
+langchain_community
+langchain_core
+sentence-transformers
+faiss-cpu

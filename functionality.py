@@ -5,11 +5,16 @@ from langchain_core.documents import Document
 
 data = pd.read_csv("spells_without_duplicates.csv")
 
-documents = [Document(page_content=str(description), metadata={'row_id': idx})
-                 for idx, description in data['Description'].items()]
+documents = [
+    Document(page_content=str(description), metadata={"row_id": idx})
+    for idx, description in data["Description"].items()
+]
 
-db = FAISS.from_documents(documents,
-                      HuggingFaceEmbeddings(model_name='BAAI/bge-base-en-v1.5'))
+db = FAISS.from_documents(
+    documents,
+    HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2"),
+)
+
 
 def IR(db, query, k):
 
@@ -18,7 +23,7 @@ def IR(db, query, k):
     results = ""
 
     for doc in retrieved_docs_direct:
-        row = doc.metadata.get('row_id')
+        row = doc.metadata.get("row_id")
 
         results += "## " + str(data["Name"][row]) + "\n\n"
         results += f"**Class**: {data['Class'][row]}\n\n**Level**: {data['Level'][row]}\n\n**School**: {data['School'][row]}\n\n**Duration**: {data['Duration'][row]}\n\n**Casting time**: {data['Casting.time'][row]}\n\n**Components**: {data['Components'][row]}\n\n"
@@ -34,4 +39,3 @@ def IR(db, query, k):
         results += "---\n\n"
 
     return results
-
